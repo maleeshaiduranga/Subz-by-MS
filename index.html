@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="si" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sinhala-Sub by MS clicks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@400;600;800&family=Noto+Sans+Sinhala:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f0eb;
+      --bg2: #ede7de;
+      --surface: #ffffff;
+      --surface2: #faf7f4;
+      --border: #ddd5c8;
+      --text: #1a1208;
+      --text2: #5c4f3d;
+      --text3: #9a8a74;
+      --accent: #c8651a;
+      --accent2: #e07b20;
+      --gold: #c9920a;
+      --gold2: #f0b429;
+      --success: #2d7a4f;
+      --error: #c0392b;
+      --shadow: 0 4px 24px rgba(80,50,10,0.10);
+      --shadow2: 0 8px 40px rgba(80,50,10,0.15);
+      --radius: 18px;
+      --radius2: 12px;
+    }
+    [data-theme="dark"] {
+      --bg: #0f0c08;
+      --bg2: #1a150e;
+      --surface: #201a10;
+      --surface2: #2a2218;
+      --border: #3d3020;
+      --text: #f5ead8;
+      --text2: #c9b48a;
+      --text3: #7a6a50;
+      --accent: #e07b20;
+      --accent2: #f5913a;
+      --gold: #f0b429;
+      --gold2: #ffd060;
+      --success: #3aad6a;
+      --error: #e05050;
+      --shadow: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow2: 0 8px 40px rgba(0,0,0,0.6);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 0.35s, color 0.35s;
+      overflow-x: hidden;
+    }
+
+    /* Background grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* ======== HEADER ======== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(245,240,235,0.85);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.35s, border-color 0.35s;
+    }
+    [data-theme="dark"] header {
+      background: rgba(15,12,8,0.88);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      text-decoration: none;
+    }
+    .logo-main {
+      font-family: 'Sour Gummy', cursive;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      transition: color 0.35s;
+    }
+    .logo-by {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 400;
+      font-size: 0.65rem;
+      color: var(--text3);
+      margin-left: 6px;
+      transition: color 0.35s;
+    }
+    .logo-ms {
+      font-family: 'Sour Gummy', cursive;
+      font-weight: 600;
+      font-size: 0.7rem;
+      color: var(--gold);
+      letter-spacing: 0.5px;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .theme-btn {
+      width: 46px;
+      height: 26px;
+      border-radius: 100px;
+      border: 2px solid var(--border);
+      background: var(--surface2);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s;
+      outline: none;
+    }
+    .theme-btn::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    [data-theme="dark"] .theme-btn::after {
+      transform: translateX(20px);
+      background: var(--gold);
+    }
+    .theme-label {
+      font-size: 0.78rem;
+      color: var(--text3);
+      font-weight: 500;
+      transition: color 0.35s;
+    }
+
+    /* ======== HERO ======== */
+    .hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 28px 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      color: var(--text2);
+      font-weight: 500;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      transition: all 0.35s;
+    }
+    .hero-badge span { 
+      width: 7px; height: 7px; 
+      border-radius: 50%;
+      background: var(--success);
+      display: inline-block;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.3); }
+    }
+    .hero h1 {
+      font-family: 'Sour Gummy', cursive;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text);
+      transition: color 0.35s;
+      margin-bottom: 18px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text2);
+      max-width: 560px;
+      line-height: 1.7;
+      font-family: 'Noto Sans Sinhala', sans-serif;
+      font-weight: 400;
+      transition: color 0.35s;
+    }
+
+    /* ======== MAIN CARD ======== */
+    .main-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 12px 28px 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow2);
+      overflow: hidden;
+      transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
+    }
+
+    /* ======== UPLOAD ZONE ======== */
+    .upload-section {
+      padding: 40px 40px 32px;
+    }
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius2);
+      padding: 52px 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      background: var(--surface2);
+      position: relative;
+      overflow: hidden;
+    }
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 5%, var(--surface2));
+      transform: scale(1.005);
+    }
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+      filter: grayscale(0.2);
+    }
+    .upload-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+      transition: color 0.35s;
+    }
+    .upload-sub {
+      font-size: 0.85rem;
+      color: var(--text3);
+      transition: color 0.35s;
+    }
+    .upload-formats {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .fmt-tag {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text2);
+      font-family: 'DM Sans', monospace;
+      letter-spacing: 0.5px;
+      transition: all 0.35s;
+    }
+
+    /* File loaded state */
+    .file-loaded {
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 20px 24px;
+      display: none;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.35s;
+    }
+    .file-loaded.show { display: flex; }
+    .file-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--accent) 15%, var(--surface));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .file-info { flex: 1; min-width: 0; }
+    .file-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: color 0.35s;
+    }
+    .file-meta {
+      font-size: 0.78rem;
+      color: var(--text3);
+      margin-top: 3px;
+      transition: color 0.35s;
+    }
+    .remove-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      color: var(--text2);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .remove-btn:hover {
+      background: var(--error);
+      color: #fff;
+      border-color: var(--error);
+    }
+
+    /* ======== DIVIDER ======== */
+    .card-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 40px;
+      transition: background 0.35s;
+    }
+
+    /* ======== OPTIONS ======== */
+    .options-section {
+      padding: 28px 40px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .opt-group {
+      flex: 1;
+      min-width: 180px;
+    }
+    .opt-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 8px;
+      transition: color 0.35s;
+    }
+    .opt-select {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.25s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .opt-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+    }
+    .translate-btn {
+      padding: 13px 36px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 4px 18px color-mix(in srgb, var(--accent) 40%, transparent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+      margin-top: auto;
+      align-self: flex-end;
+    }
+    .translate-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px color-mix(in srgb, var(--accent) 50%, transparent);
+    }
+    .translate-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .translate-btn svg { transition: transform 0.3s; }
+    .translate-btn:hover:not(:disabled) svg { transform: rotate(15deg); }
+
+    /* ======== PROGRESS ======== */
+    .progress-section {
+      padding: 0 40px 32px;
+      display: none;
+    }
+    .progress-section.show { display: block; }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .progress-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text2);
+      transition: color 0.35s;
+    }
+    .progress-pct {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .progress-bar-bg {
+      height: 8px;
+      background: var(--bg2);
+      border-radius: 100px;
+      overflow: hidden;
+      transition: background 0.35s;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      border-radius: 100px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+    .progress-status {
+      font-size: 0.78rem;
+      color: var(--text3);
+      margin-top: 8px;
+      font-family: 'Noto Sans Sinhala', sans-serif;
+      transition: color 0.35s;
+    }
+
+    /* ======== RESULT ======== */
+    .result-section {
+      padding: 32px 40px 40px;
+      display: none;
+      border-top: 1px solid var(--border);
+    }
+    .result-section.show { display: block; }
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .result-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: color 0.35s;
+    }
+    .result-title .check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.85rem;
+    }
+    .result-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .dl-btn {
+      padding: 10px 22px;
+      background: var(--success);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px color-mix(in srgb, var(--success) 35%, transparent);
+    }
+    .dl-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px color-mix(in srgb, var(--success) 45%, transparent);
+    }
+    .preview-toggle {
+      padding: 10px 18px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--text2);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .preview-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .preview-area {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 20px;
+      max-height: 320px;
+      overflow-y: auto;
+      font-family: 'Noto Sans Sinhala', 'DM Sans', monospace;
+      font-size: 0.84rem;
+      line-height: 1.8;
+      color: var(--text2);
+      display: none;
+      transition: all 0.35s;
+    }
+    .preview-area.show { display: block; }
+    .preview-area::-webkit-scrollbar { width: 6px; }
+    .preview-area::-webkit-scrollbar-track { background: transparent; }
+    .preview-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .preview-block {
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .preview-block:last-child { border-bottom: none; margin-bottom: 0; }
+    .preview-index { font-size: 0.7rem; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+    .preview-time { font-size: 0.72rem; color: var(--text3); margin-bottom: 4px; font-family: monospace; }
+    .preview-text { color: var(--text); }
+
+    /* ======== ERROR ======== */
+    .error-box {
+      margin: 0 40px 32px;
+      padding: 16px 20px;
+      background: color-mix(in srgb, var(--error) 10%, var(--surface));
+      border: 1px solid color-mix(in srgb, var(--error) 30%, var(--border));
+      border-radius: 12px;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--error);
+    }
+    .error-box.show { display: flex; }
+
+    /* ======== STATS ======== */
+    .stats-row {
+      display: flex;
+      gap: 14px;
+      padding: 0 40px 28px;
+      flex-wrap: wrap;
+    }
+    .stat-chip {
+      flex: 1;
+      min-width: 120px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      transition: all 0.35s;
+    }
+    .stat-num {
+      font-family: 'Sour Gummy', cursive;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 0.72rem;
+      color: var(--text3);
+      margin-top: 4px;
+      font-weight: 500;
+      font-family: 'Noto Sans Sinhala', sans-serif;
+    }
+
+    /* ======== FOOTER ======== */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 28px;
+      font-size: 0.78rem;
+      color: var(--text3);
+      border-top: 1px solid var(--border);
+      transition: all 0.35s;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer .heart { color: var(--accent); }
+
+    /* ======== HOW IT WORKS ======== */
+    .how-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px 48px;
+      position: relative;
+      z-index: 1;
+    }
+    .how-title {
+      font-family: 'Sour Gummy', cursive;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      transition: color 0.35s;
+    }
+    .how-steps {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .how-step {
+      flex: 1;
+      min-width: 160px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: all 0.35s;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-txt { flex: 1; }
+    .step-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text);
+      margin-bottom: 4px;
+      transition: color 0.35s;
+    }
+    .step-desc {
+      font-size: 0.78rem;
+      color: var(--text3);
+      line-height: 1.6;
+      font-family: 'Noto Sans Sinhala', sans-serif;
+      transition: color 0.35s;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .upload-section, .options-section, .result-section, .progress-section { padding-left: 22px; padding-right: 22px; }
+      .card-divider { margin: 0 22px; }
+      .stats-row, .error-box { padding-left: 22px; padding-right: 22px; }
+      .options-section { flex-direction: column; }
+      .translate-btn { width: 100%; justify-content: center; }
+      .hero { padding-top: 40px; }
+    }
+
+    /* Loader spinner inside btn */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .spinner.show { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Fade-in animation */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card { animation: fadeUp 0.5s ease both; }
+    .hero { animation: fadeUp 0.4s ease both; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <span class="logo-main">Sinhala-Sub</span>
+      <span class="logo-by">by</span>
+      <span class="logo-ms">MS clicks</span>
+    </a>
+    <div class="header-right">
+      <span class="theme-label" id="themeLabel">Light</span>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle dark/light mode"></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span></span>
+    AI Translation Active — සිංහල subtitle සේවාව
+  </div>
+  <h1>English Subtitles<br><em>සිංහලට</em> පරිවර්තනය කරන්න</h1>
+  <p>ඕනෑම subtitle file එකක් upload කරන්න. ස්වයංක්‍රීයව සරල, කතාකරන සිංහලට translate කරා ගන්න.</p>
+</section>
+
+<!-- MAIN CARD -->
+<div class="main-wrap">
+  <div class="card">
+
+    <!-- UPLOAD -->
+    <div class="upload-section">
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".srt,.txt,.sub,.ass,.ssa,.vtt,.sbv" />
+        <span class="upload-icon">🎬</span>
+        <div class="upload-title">Subtitle File Upload කරන්න</div>
+        <div class="upload-sub">Drag & drop කරන්න, හෝ click කරන්න</div>
+        <div class="upload-formats">
+          <span class="fmt-tag">SRT</span>
+          <span class="fmt-tag">TXT</span>
+          <span class="fmt-tag">SUB</span>
+          <span class="fmt-tag">ASS</span>
+          <span class="fmt-tag">VTT</span>
+          <span class="fmt-tag">SSA</span>
+        </div>
+      </div>
+      <div class="file-loaded" id="fileLoaded">
+        <div class="file-icon-box">📄</div>
+        <div class="file-info">
+          <div class="file-name" id="fileName">—</div>
+          <div class="file-meta" id="fileMeta">—</div>
+        </div>
+        <button class="remove-btn" id="removeBtn">ඉවත් කරන්න</button>
+      </div>
+    </div>
+
+    <div class="card-divider"></div>
+
+    <!-- OPTIONS -->
+    <div class="options-section">
+      <div class="opt-group">
+        <div class="opt-label">Translation Method</div>
+        <select class="opt-select" id="methodSelect">
+          <option value="google">Google Translate (Unlimited)</option>
+          <option value="mymemory">MyMemory API (Free)</option>
+          <option value="lingva">Lingva Translate (Open Source)</option>
+        </select>
+      </div>
+      <div class="opt-group">
+        <div class="opt-label">Translation Style</div>
+        <select class="opt-select" id="styleSelect">
+          <option value="spoken">කතාකරන සිංහල (Spoken)</option>
+          <option value="formal">ලිඛිත සිංහල (Written)</option>
+        </select>
+      </div>
+      <button class="translate-btn" id="translateBtn" disabled>
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+        </svg>
+        සිංහලට පරිවර්තනය කරන්න
+        <div class="spinner" id="spinner"></div>
+      </button>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-section" id="progressSection">
+      <div class="progress-header">
+        <span class="progress-label" id="progressLabel">Translating...</span>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-status" id="progressStatus">පරිවර්තනය සකස් කරමින් පවතී...</div>
+    </div>
+
+    <!-- ERROR -->
+    <div class="error-box" id="errorBox">
+      <span>⚠️</span>
+      <span id="errorMsg">—</span>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row" id="statsRow" style="display:none;">
+      <div class="stat-chip">
+        <div class="stat-num" id="statLines">0</div>
+        <div class="stat-lbl">subtitle lines</div>
+      </div>
+      <div class="stat-chip">
+        <div class="stat-num" id="statTime">0s</div>
+        <div class="stat-lbl">ගතවූ කාලය</div>
+      </div>
+      <div class="stat-chip">
+        <div class="stat-num" id="statWords">0</div>
+        <div class="stat-lbl">වචන</div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-section" id="resultSection">
+      <div class="result-header">
+        <div class="result-title">
+          <span class="check">✓</span>
+          පරිවර්තනය සාර්ථකයි!
+        </div>
+        <div class="result-actions">
+          <button class="preview-toggle" id="previewToggle">👁 Preview</button>
+          <button class="dl-btn" id="dlBtn">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            SRT Download
+          </button>
+        </div>
+      </div>
+      <div class="preview-area" id="previewArea"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="how-title">📖 භාවිතා කරන්නේ කෙසේද?</div>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="step-num">1</div>
+      <div class="step-txt">
+        <div class="step-name">File Upload</div>
+        <div class="step-desc">SRT, TXT හෝ වෙනත් subtitle file drag & drop කරන්න</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="step-num">2</div>
+      <div class="step-txt">
+        <div class="step-name">Style තෝරන්න</div>
+        <div class="step-desc">කතාකරන සිංහල හෝ ලිඛිත සිංහල style select කරන්න</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="step-num">3</div>
+      <div class="step-txt">
+        <div class="step-name">Translate කරන්න</div>
+        <div class="step-desc">Button click කරන්න. AI ස්වයංක්‍රීයව translate කරයි</div>
+      </div>
+    </div>
+    <div class="how-step">
+      <div class="step-num">4</div>
+      <div class="step-txt">
+        <div class="step-name">Download කරන්න</div>
+        <div class="step-desc">Translated SRT file download කර video player හි use කරන්න</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Made with <span class="heart">♥</span> by <a href="#">MS clicks</a> · Sinhala subtitle translation, free & open source
+</footer>
+
+<script>
+// ======== THEME ========
+const themeBtn = document.getElementById('themeBtn');
+const themeLabel = document.getElementById('themeLabel');
+let darkMode = false;
+
+themeBtn.addEventListener('click', () => {
+  darkMode = !darkMode;
+  document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  themeLabel.textContent = darkMode ? 'Dark' : 'Light';
+});
+
+// ======== FILE UPLOAD ========
+const fileInput = document.getElementById('fileInput');
+const uploadZone = document.getElementById('uploadZone');
+const fileLoaded = document.getElementById('fileLoaded');
+const fileName = document.getElementById('fileName');
+const fileMeta = document.getElementById('fileMeta');
+const removeBtn = document.getElementById('removeBtn');
+const translateBtn = document.getElementById('translateBtn');
+
+let currentFile = null;
+let parsedBlocks = [];
+let translatedBlocks = [];
+
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('dragover');
+  const f = e.dataTransfer.files[0];
+  if (f) handleFile(f);
+});
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) handleFile(fileInput.files[0]);
+});
+removeBtn.addEventListener('click', resetAll);
+
+function handleFile(file) {
+  currentFile = file;
+  const sizeKB = (file.size / 1024).toFixed(1);
+  uploadZone.style.display = 'none';
+  fileLoaded.classList.add('show');
+  fileName.textContent = file.name;
+  fileMeta.textContent = `${sizeKB} KB · ${file.name.split('.').pop().toUpperCase()} file`;
+  translateBtn.disabled = false;
+  hideError();
+  hideResult();
+}
+
+function resetAll() {
+  currentFile = null;
+  parsedBlocks = [];
+  translatedBlocks = [];
+  fileInput.value = '';
+  uploadZone.style.display = '';
+  fileLoaded.classList.remove('show');
+  translateBtn.disabled = true;
+  hideError();
+  hideResult();
+  hideProgress();
+  document.getElementById('statsRow').style.display = 'none';
+}
+
+// ======== PARSE SUBTITLE ========
+function parseSRT(text) {
+  const blocks = [];
+  // Normalize line endings
+  text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const raw = text.trim().split(/\n\s*\n/);
+  for (const chunk of raw) {
+    const lines = chunk.trim().split('\n');
+    if (lines.length < 2) continue;
+    const idxLine = lines[0].trim();
+    const timeLine = lines[1].trim();
+    if (!/-->/.test(timeLine)) continue;
+    const textLines = lines.slice(2).join('\n').trim();
+    blocks.push({ index: idxLine, time: timeLine, text: textLines });
+  }
+  return blocks;
+}
+
+function parseTXT(text) {
+  // Plain text: treat each non-empty line as a subtitle block
+  const lines = text.split('\n').filter(l => l.trim());
+  return lines.map((l, i) => ({
+    index: String(i + 1),
+    time: `00:00:0${i},000 --> 00:00:0${i+1},000`,
+    text: l.trim()
+  }));
+}
+
+function parseGeneric(text, ext) {
+  // Try SRT first
+  if (text.includes('-->')) return parseSRT(text);
+  return parseTXT(text);
+}
+
+// ======== TRANSLATION ========
+async function translateText(text, method) {
+  if (!text || text.trim() === '') return text;
+
+  // Clean HTML tags from subtitle text
+  const clean = text.replace(/<[^>]*>/g, '').trim();
+  if (!clean) return text;
+
+  if (method === 'mymemory') {
+    return await translateMyMemory(clean);
+  } else if (method === 'lingva') {
+    return await translateLingva(clean);
+  } else {
+    return await translateGoogle(clean);
+  }
+}
+
+async function translateMyMemory(text) {
+  const encoded = encodeURIComponent(text);
+  const url = `https://api.mymemory.translated.net/get?q=${encoded}&langpair=en|si`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.responseStatus === 200 && data.responseData && data.responseData.translatedText) {
+      let translated = data.responseData.translatedText;
+      // Sometimes returns same text if it failed
+      if (translated.toLowerCase() === text.toLowerCase()) return text;
+      return translated;
+    }
+    return text;
+  } catch {
+    return text;
+  }
+}
+
+async function translateGoogle(text) {
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=si&dt=t&q=${encodeURIComponent(text)}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const translated = data[0].map(x => x[0]).join('');
+    if (translated && translated !== text) return translated;
+    return text;
+  } catch {
+    // Fallback to MyMemory if Google fails
+    return await translateMyMemory(text);
+  }
+}
+
+async function translateLingva(text) {
+  const instances = [
+    `https://lingva.ml/api/v1/en/si/${encodeURIComponent(text)}`,
+    `https://lingva.thedaviddelta.com/api/v1/en/si/${encodeURIComponent(text)}`,
+  ];
+  for (const url of instances) {
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.translation && data.translation !== text) return data.translation;
+      }
+    } catch {}
+  }
+  // Fallback to Google if all Lingva instances fail
+  return await translateGoogle(text);
+}
+
+// Rate limit: batch translation with delay
+async function translateBatch(blocks, method, onProgress) {
+  const results = [];
+  const batchSize = 5;
+  const delay = ms => new Promise(r => setTimeout(r, ms));
+
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i];
+    const translated = await translateText(b.text, method);
+    results.push({ ...b, translated });
+    onProgress(i + 1, blocks.length, translated);
+    // Small delay to avoid rate limiting
+    if ((i + 1) % batchSize === 0) await delay(300);
+    else await delay(80);
+  }
+  return results;
+}
+
+// ======== GENERATE SRT ========
+function generateSRT(blocks) {
+  return blocks.map(b => `${b.index}\n${b.time}\n${b.translated}`).join('\n\n');
+}
+
+// ======== MAIN TRANSLATE FLOW ========
+const spinner = document.getElementById('spinner');
+const progressSection = document.getElementById('progressSection');
+const progressLabel = document.getElementById('progressLabel');
+const progressPct = document.getElementById('progressPct');
+const progressFill = document.getElementById('progressFill');
+const progressStatus = document.getElementById('progressStatus');
+const resultSection = document.getElementById('resultSection');
+const previewArea = document.getElementById('previewArea');
+const previewToggle = document.getElementById('previewToggle');
+const dlBtn = document.getElementById('dlBtn');
+const errorBox = document.getElementById('errorBox');
+const errorMsg = document.getElementById('errorMsg');
+const statsRow = document.getElementById('statsRow');
+
+let previewOpen = false;
+
+previewToggle.addEventListener('click', () => {
+  previewOpen = !previewOpen;
+  previewArea.classList.toggle('show', previewOpen);
+  previewToggle.textContent = previewOpen ? '👁 Hide' : '👁 Preview';
+});
+
+translateBtn.addEventListener('click', async () => {
+  if (!currentFile) return;
+  await runTranslation();
+});
+
+async function runTranslation() {
+  const method = document.getElementById('methodSelect').value;
+  const startTime = Date.now();
+
+  // Read file
+  let text;
+  try {
+    text = await currentFile.text();
+  } catch (e) {
+    showError('File read කිරීමේ දෝෂයක් ඇත. නැවත උත්සාහ කරන්න.');
+    return;
+  }
+
+  // Parse
+  const ext = currentFile.name.split('.').pop().toLowerCase();
+  parsedBlocks = parseGeneric(text, ext);
+
+  if (parsedBlocks.length === 0) {
+    showError('Subtitle blocks හඳුනාගත නොහැකි විය. Valid subtitle file එකක් upload කරන්න.');
+    return;
+  }
+
+  // UI: loading state
+  translateBtn.disabled = true;
+  spinner.classList.add('show');
+  hideError();
+  hideResult();
+  showProgress();
+  document.getElementById('statsRow').style.display = 'none';
+
+  progressLabel.textContent = `${parsedBlocks.length} lines translate කරමින්...`;
+
+  // Translate
+  try {
+    translatedBlocks = await translateBatch(parsedBlocks, method, (done, total, lastTxt) => {
+      const pct = Math.round((done / total) * 100);
+      progressFill.style.width = pct + '%';
+      progressPct.textContent = pct + '%';
+      progressStatus.textContent = `${done}/${total} — "${lastTxt.slice(0, 40)}${lastTxt.length > 40 ? '...' : ''}"`;
+    });
+  } catch (e) {
+    showError('Translation API error: ' + e.message);
+    translateBtn.disabled = false;
+    spinner.classList.remove('show');
+    hideProgress();
+    return;
+  }
+
+  // Done
+  const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+  const totalWords = parsedBlocks.reduce((a, b) => a + b.text.split(' ').length, 0);
+
+  spinner.classList.remove('show');
+  translateBtn.disabled = false;
+  hideProgress();
+
+  // Stats
+  document.getElementById('statLines').textContent = parsedBlocks.length;
+  document.getElementById('statTime').textContent = elapsed + 's';
+  document.getElementById('statWords').textContent = totalWords;
+  statsRow.style.display = 'flex';
+
+  // Preview
+  previewArea.innerHTML = translatedBlocks.slice(0, 30).map(b => `
+    <div class="preview-block">
+      <div class="preview-index">#${b.index}</div>
+      <div class="preview-time">${b.time}</div>
+      <div class="preview-text">${b.translated}</div>
+    </div>
+  `).join('');
+  if (translatedBlocks.length > 30) {
+    previewArea.innerHTML += `<div style="text-align:center;color:var(--text3);font-size:0.8rem;padding:10px">... හා ${translatedBlocks.length - 30} blocks දිගටම</div>`;
+  }
+
+  showResult();
+
+  // Download handler
+  const outSRT = generateSRT(translatedBlocks);
+  const baseName = currentFile.name.replace(/\.[^/.]+$/, '');
+  dlBtn.onclick = () => {
+    const blob = new Blob([outSRT], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${baseName}_sinhala.srt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+}
+
+function showProgress() { progressSection.classList.add('show'); progressFill.style.width = '0%'; progressPct.textContent = '0%'; }
+function hideProgress() { progressSection.classList.remove('show'); }
+function showResult() { resultSection.classList.add('show'); }
+function hideResult() { resultSection.classList.remove('show'); previewArea.classList.remove('show'); previewOpen = false; previewToggle.textContent = '👁 Preview'; }
+function showError(msg) { errorBox.classList.add('show'); errorMsg.textContent = msg; }
+function hideError() { errorBox.classList.remove('show'); }
+</script>
+</body>
+</html>
